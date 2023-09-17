@@ -2,12 +2,8 @@ import os
 import numpy as np
 import faiss
 import PyPDF2
-from dotenv import load_dotenv
 from transformers import BertTokenizer, BertModel
 import torch
-
-# Load the environment variables (for the API key, if needed in the future)
-load_dotenv()
 
 # Load pre-trained model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -24,8 +20,7 @@ class PDFProcessorWithHuggingFace:
         with open(self.pdf_path, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
             for index,page_num in enumerate(range(len(reader.pages))):
-                if (index > 8) and (index<164):  
-                    self.content.append(reader.pages[page_num].extract_text())
+                self.content.append(reader.pages[page_num].extract_text())
 
     def split_content_into_chunks(self):
         str_content=''.join(self.content)
@@ -70,10 +65,9 @@ class PDFProcessorWithHuggingFace:
         index = self.create_faiss_index(embeddings)
         return index
 
-# Example usage
-pdf_path = "/mnt/sda1/community-llm/theconnectedcommunity.pdf"  # Replace with your PDF path
+pdf_path = "/path/to/input"  # Replace with your PDF path
 processor = PDFProcessorWithHuggingFace(pdf_path)
 faiss_index = processor.process_pdf()
 
 # To save the Faiss index:
-faiss.write_index(faiss_index, "/mnt/sda1/community-llm/theconnectedcommunity.index")
+faiss.write_index(faiss_index, "/path/to/output")
