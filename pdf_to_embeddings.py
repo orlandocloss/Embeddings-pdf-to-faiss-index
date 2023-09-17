@@ -57,7 +57,7 @@ class PDFProcessorWithHuggingFace:
         self.read_pdf_content()
         chunks = self.split_content_into_chunks()
         # Save the chunks to a separate file for quick retrieval later
-        with open("/mnt/sda1/community-llm/theconnectedcommunity_chunks.txt", 'w') as f:
+        with open("/path/to/chunks.txt", 'w') as f:
             # print(chunks)
             for chunk in chunks:
                 f.write(chunk + "\n====\n")
