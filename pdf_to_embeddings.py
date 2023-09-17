@@ -7,7 +7,7 @@ import torch
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
-model.eval()  # Set the model to evaluation mode
+model.eval() 
 
 class PDFProcessorWithHuggingFace:
     def __init__(self, pdf_path):
