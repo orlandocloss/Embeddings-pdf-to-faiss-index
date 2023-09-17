@@ -2,10 +2,6 @@
 
 Simple for converting a pdf to faiss index using BERT. Used for similarity search. 
 
-## Example Usage
-
-``` python pdf_to_embeddings.py ```
-
 ## TO DO 
 
 - Change path names.
