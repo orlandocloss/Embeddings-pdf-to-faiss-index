@@ -5,7 +5,6 @@ import PyPDF2
 from transformers import BertTokenizer, BertModel
 import torch
 
-# Load pre-trained model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
 model.eval()  # Set the model to evaluation mode
@@ -32,14 +31,9 @@ class PDFProcessorWithHuggingFace:
         return chunks
 
     def get_embeddings_from_huggingface(self, text):
-        # Tokenize input text
         inputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True, max_length=512)
-        
-        # Get embeddings
         with torch.no_grad():
             outputs = model(**inputs)
-        
-        # Extract the last hidden states (embeddings)
         embeddings = outputs.last_hidden_state.mean(dim=1).numpy()
         return embeddings
 
@@ -56,7 +50,6 @@ class PDFProcessorWithHuggingFace:
     def process_pdf(self):
         self.read_pdf_content()
         chunks = self.split_content_into_chunks()
-        # Save the chunks to a separate file for quick retrieval later
         with open("/path/to/chunks.txt", 'w') as f:
             # print(chunks)
             for chunk in chunks:
@@ -68,6 +61,4 @@ class PDFProcessorWithHuggingFace:
 pdf_path = "/path/to/input"  # Replace with your PDF path
 processor = PDFProcessorWithHuggingFace(pdf_path)
 faiss_index = processor.process_pdf()
-
-# To save the Faiss index:
 faiss.write_index(faiss_index, "/path/to/output")
