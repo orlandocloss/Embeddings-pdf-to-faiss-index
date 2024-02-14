@@ -1,6 +1,6 @@
 # Create embeddings from pdf
 
-Simple for converting a pdf to faiss index using BERT. Used for similarity search. 
+Simple script for converting a pdf to faiss index using BERT. Used for similarity search. 
 
 ## TO DO 
 
